@@ -1,8 +1,9 @@
 julia 0.5
 RoME
-IncrementalInference
-Graphs
+IncrementalInference 0.2.4
+Graphs 0.7.1
 KernelDensityEstimate
+Distributions
 DrakeVisualizer
 TransformUtils
 CoordinateTransformations
@@ -17,3 +18,5 @@ JSON
 MeshIO
 FileIO
 NLsolve
+DataStructures
+ProgressMeter

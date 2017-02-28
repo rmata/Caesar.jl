@@ -2,11 +2,16 @@ module Caesar
 
 instpkg = Pkg.installed();
 
+# import RoME: initfg
+import Distributions: Normal
+import DrakeVisualizer: Triad
+
 using
   RoME,
   IncrementalInference,
   Graphs,
   KernelDensityEstimate,
+  Distributions,
   DrakeVisualizer,
   TransformUtils,
   CoordinateTransformations,
@@ -20,13 +25,21 @@ using
   JSON,
   MeshIO,
   FileIO,
-  NLsolve
+  NLsolve,
+  DataStructures,
+  ProgressMeter
 
 if haskey(instpkg,"CloudGraphs")
   using CloudGraphs
+  using Neo4j
+  using Mongo
+  using LibBSON
 end
 
 # using GraphViz, Fontconfig, Cairo, Distributions, DataFrames
+
+
+
 
 export
   # Victoria Park example -- batch
@@ -56,20 +69,8 @@ export
   saveSlam,
   loadSlam,
 
-  # cloudgraph
-  usecloudgraphsdatalayer!,
-  # CloudGraph stuff
-  registerGeneralVariableTypes!,
-  fullLocalGraphCopy!,
-  removeGenericMarginals!,
-  setBackendWorkingSet!,
-  setDBAllReady!,
-  getExVertFromCloud,
-  getAllExVertexNeoIDs,
-  getPoseExVertexNeoIDs,
-  copyAllNodes!,
-  copyAllEdges!,
-  registerCallback!,
+  # more passthrough
+  initfg,
 
   # drawing functions
   VisualizationContainer,
@@ -80,11 +81,17 @@ export
   visualizeDensityMesh!,
   updaterealtime!,
   visualizerealtime,
+  # new tree interface
+  drawpose!,
+  drawmarginalpoints!,
 
   # for models
   loadmodel,
   DrawModel,
   DrawROV,
+  DrawScene,
+  #deleting functions
+  deletemeshes!,
 
   # more drawing utils
   ArcPointsRangeSolve,
